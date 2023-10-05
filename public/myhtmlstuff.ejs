@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+        #resources {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #accelerateBtn {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Define a grid container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Three columns of equal width */
+            grid-gap: 5px; /* Gap between grid items */
+        }
+
+        /* Style for grid items */
+        .grid-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Atom Game</h1>
+    <button id="accelerateBtn">Accelerate Expansion</button>
+    <div><p></p></div>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <p id="photons-nametag">Photons:</p>
+            <p id="photons">9000000000000000</p>
+        </div>
+        <div class="grid-item">
+            <p id="quarks-nametag">Quarks:</p>
+            <p id="quarks">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="nuetrons-nametag">Nuetrons:</p>
+            <p id="nuetrons">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="protons-nametag">Protons:</p>
+            <p id="protons">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="electrons-nametag">Electrons:</p>
+            <p id="electrons">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="hydrogen-nametag">Hydrogen:</p>
+            <p id="hydrogen">0</p>
+        </div>
+    </div>
+
+    <script>
+        new Universe();
+        console.log("this works i guess");
+    </script>
+
+</body>
+</html>

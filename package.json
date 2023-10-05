@@ -1,0 +1,23 @@
+{
+  "name": "pydlegame",
+  "version": "1.0.0",
+  "description": "first idle game",
+  "main": "app.js",
+  "scripts": {
+    "test": "node start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidanperkins/atomicIdler.git"
+  },
+  "author": "Aidan Perkins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aidanperkins/atomicIdler/issues"
+  },
+  "homepage": "https://github.com/aidanperkins/atomicIdler#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}

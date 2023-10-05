@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Game</title>
+    <style>
+        body {
+            align-items: center;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+        #resources {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        #accelerateBtn {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        div {
+            margin-top: 5px;
+        }
+
+        /* Define a grid container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Three columns of equal width */
+            grid-gap: 5px; /* Gap between grid items */
+        }
+
+        /* Style for grid items */
+        .grid-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        /* Define a upgrade container */
+        .upgrade-container {
+            visibility: hidden;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Three columns of equal width */
+            grid-gap: 2px; /* Gap between grid items */
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        /* Style for upgrade items */
+        .upgrade-item {
+            border: 1px solid #ddd;
+            text-align: center;
+            height: 80px;
+            width: 80px;
+        }
+
+        .sliders {
+            padding: 1.5em
+        }
+
+        .slider {
+            position: relative;
+            width: 50%;
+            height: 1em;
+            margin: 1.5em auto;
+            background-color: #29e;
+            border-radius: 0.5em;
+            box-sizing: border-box;
+
+            font-size: 1em;
+            padding-left: 25%;
+            -ms-touch-action: none;
+                touch-action: none;
+        }
+
+        /* the slider handle */
+        .slider:before {
+            content: "";
+            display: block;
+            position: relative;
+
+            width: 2em;
+            height: 1em;
+            margin-left: -1em;
+            margin-bottom: 2em;
+            border: solid 0.25em #fff;
+            border-radius: 1em;
+            background-color: inherit;
+
+            box-sizing: border-box;
+        }
+
+        /* display the value */
+
+    </style>
+</head>
+
+<body>
+    <h1>Atom Game</h1>
+    <button id="accelerateBtn">Universal Constant: 0</button>
+    <div class="slider">
+        <div class="handle"></div>
+    </div>
+    <div class="upgrade-container" id="upgrade-section" style="visibility: hidden;">
+        <div class="upgrade-item" onmouseenter="showDescription()" onmouseleave="hideDescription()">Test1</div>
+    </div>
+    <div class="grid-container" style="grid-template-columns: repeat(2, 1fr)">
+        <div class="grid-item">
+            <p id="antiphotons-nametag">Antiphotons:</p>
+            <p id="antiphotons">-9000000000000000</p>
+        </div>
+        <div class="grid-item">
+            <p id="charge-nametag">Charge:</p>
+            <p id="charge">0</p>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <p id="photons-nametag">Photons:</p>
+            <p id="photons">9000000000000000</p>
+        </div>
+        <div class="grid-item">
+            <p id="quarks-nametag">Quarks:</p>
+            <p id="quarks">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="nuetrons-nametag">Nuetrons:</p>
+            <p id="nuetrons">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="protons-nametag">Protons:</p>
+            <p id="protons">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="electrons-nametag">Electrons:</p>
+            <p id="electrons">0</p>
+        </div>
+        <div class="grid-item">
+            <p id="hydrogen-nametag">Hydrogen:</p>
+            <p id="hydrogen">0</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js">
+        // Step 1
+        console.log("did the slider thing");
+
+        
+        console.log("did the slider thing");
+    </script>
+
+    <script>
+        universe_cap = Number.MAX_SAFE_INTEGER
+        accelerators = 0;
+        charge = 0.00;
+        photons = 9000000000000000;
+        antiphotons = -9000000000000000;
+        quarks = 0.00;
+        nuetrons = 0.00;
+        protons = 0.00;
+        electrons = 0.00;
+        hydrogen = 0.00;
+        function constructor() {
+            console.log("uuuuh");
+            // Click event for the button
+        }
+
+        
+
+        function showDescription() {
+            document.onmousover = function(e) {
+                console.log(e.target.class);
+            }
+            
+        }
+        function hideDescription() {
+
+        }
+        function updateResources() {
+            document.getElementById('charge').innerText = this.charge;
+            document.getElementById('photons').innerText = this.photons;
+            document.getElementById('antiphotons').innerText = this.antiphotons;
+            document.getElementById('quarks').innerText = this.quarks.toFixed(2);
+            document.getElementById('nuetrons').innerText = this.nuetrons.toFixed(2);
+            document.getElementById('protons').innerText = this.protons.toFixed(2);
+            document.getElementById('electrons').innerText = this.electrons.toFixed(2);
+            document.getElementById('hydrogen').innerText = this.hydrogen.toFixed(2);
+            document.getElementById('accelerateBtn').innerText = "Universal Constant: "+this.accelerators;
+            
+            // put save to file function here
+            
+        }
+        function earnResource() {
+            this.accelerators++
+            this.photons -= 100
+            this.antiphotons += 100
+            this.quarks += 1
+            this.updateResources();
+        }
+        function passiveEarning() {
+            if (this.photons >= 1) {
+                this.photons -= 1 * this.accelerators
+                this.antiphotons += 1 * this.accelerators
+                this.quarks += 0.01 * this.accelerators
+            }
+            // nuetrons protons and electrons have different recipes and are produced at different rates relative to nuetrons when a charge is applied
+            // B decay converts protons to nuetrons and nuetrons to protons
+            // give the electrons some alternative recipe
+            // only things possible without stars are H1 H2 He3 He4 and trace Li7
+
+            // nuetrons are easy
+            if (this.accelerators > 100 && this.charge == 0 && this.quarks >= 10) {
+                this.quarks -= 10 
+                this.nuetrons +=1 
+            }
+            // proton recipe
+            else if (this.accelerators > 1000 && this.quarks >= 10 && this.charge > 0) {
+                this.quarks -= 10
+                this.nuetrons += 1-charge
+                this.protons += charge
+            }
+            // electron recipe
+            else if (this.accelerators > 1000 && this.quarks >= 10 && this.charge < 0) {
+                this.quarks -= 10
+                this.nuetrons += 1-charge
+                this.electrons += charge*-1
+            }
+
+            if (this.accelerators > 10000 && this.nuetrons > 1 && this.protons > 1 && this.electrons > 1) {
+                this.nuetrons -= 1
+                this.protons -= 1
+                this.electrons -= 1
+                this.hydrogen += 1
+            }
+
+            if (hydrogen > 10) {
+                document.getElementById("upgrade-section").style.visibility = "visible";
+                document.getElementById("upgrade-section").style.marginTop = "10px";
+                document.getElementById("upgrade-section").style.marginBottom = "10px";
+            }
+
+            this.updateResources();
+        }
+
+        document.getElementById('accelerateBtn').addEventListener('click', () => this.earnResource());
+        updateResources();
+        setInterval(this.passiveEarning, 100);
+
+
+
+        
+
+        
+
+        const slider = interact('.slider')
+        .draggable({                        // make the element fire drag events
+            origin: 'self',                   // (0, 0) will be the element's top-left
+            inertia: true,                    // start inertial movement if thrown
+            modifiers: [
+                interact.modifiers.restrict({
+                    restriction: 'self'           // keep the drag coords within the element
+                }),
+                
+            ]
+        })
+        .on('dragmove', function (event) {  // call this listener on every dragmove
+            const sliderWidth = interact.getElementRect(event.target.parentNode).width
+            const value = (event.pageX / sliderWidth);
+            // 0-1 value
+            const formattedValue = value.toFixed(2);
+            // -1 to 1 value
+            const chargeValue = (formattedValue - 0.25)*4;
+            const formattedCharge = chargeValue.toFixed(2);
+            event.target.style.paddingLeft = (formattedValue * 100) + '%';
+            event.target.setAttribute('data-value', formattedCharge);
+            charge = Number(formattedCharge);
+        });
+
+    </script>
+
+</body>
+</html>
