@@ -128,7 +128,7 @@
         </div>
         <div class="grid-item">
             <p id="nuetrons-nametag">Nuetrons:</p>
-            <p id="nuetrons">0</p>
+            <p id="neutrons">0</p>
         </div>
         <div class="grid-item">
             <p id="protons-nametag">Protons:</p>
@@ -155,11 +155,14 @@
     <script>
         universe_cap = Number.MAX_SAFE_INTEGER
         accelerators = 0;
+        acceleratorsActual = 0.00;
+        accelCap = 1000000000
         charge = 0.00;
         photons = 9000000000000000;
         antiphotons = -9000000000000000;
+        neutrinos = 0.00;
         quarks = 0.00;
-        nuetrons = 0.00;
+        neutrons = 0.00;
         protons = 0.00;
         electrons = 0.00;
         hydrogen = 0.00;
@@ -184,24 +187,31 @@
             document.getElementById('photons').innerText = this.photons;
             document.getElementById('antiphotons').innerText = this.antiphotons;
             document.getElementById('quarks').innerText = this.quarks.toFixed(2);
-            document.getElementById('nuetrons').innerText = this.nuetrons.toFixed(2);
+            document.getElementById('neutrons').innerText = this.neutrons.toFixed(2);
             document.getElementById('protons').innerText = this.protons.toFixed(2);
             document.getElementById('electrons').innerText = this.electrons.toFixed(2);
             document.getElementById('hydrogen').innerText = this.hydrogen.toFixed(2);
-            document.getElementById('accelerateBtn').innerText = "Universal Constant: "+this.accelerators;
+            document.getElementById('accelerateBtn').innerText = "Universal Constant: "+this.acceleratorsActual.toFixed(2);
             
             // put save to file function here
             
         }
         function earnResource() {
-            this.accelerators++
-            this.photons -= 100
-            this.antiphotons += 100
-            this.quarks += 1
+            this.accelerators++;
+            
+            this.acceleratorsActual = Math.pow((this.accelerators), 1.8);
+
+            /*
+            if (this.acceleratorsSqrd > 100000000) {
+                this.photons -= 100
+                this.antiphotons += 100
+                this.quarks += 1
+            }
+            */
             this.updateResources();
         }
         function passiveEarning() {
-            if (this.photons >= 1) {
+            if (this.photons >= 1 && this.acceleratorsActual > 100000000) {
                 this.photons -= 1 * this.accelerators
                 this.antiphotons += 1 * this.accelerators
                 this.quarks += 0.01 * this.accelerators
@@ -211,26 +221,34 @@
             // give the electrons some alternative recipe
             // only things possible without stars are H1 H2 He3 He4 and trace Li7
 
+            // generate events based on some random quantum seed
+            // need to to somethign in the meantime
+            // events? or upgrades? or make accelerators exponential so it goes faster
+            // give accelerators a non linear curve? ()
+            // start making neutrinos at 1,000,000
+            // start making quarks and elementaries at 100,000,000,000
+            // antimatter doesnt interact with gravity so its pushed to the edges of the universe while normal matter is pulled together
+            // electrons need a very different recipe
             // nuetrons are easy
-            if (this.accelerators > 100 && this.charge == 0 && this.quarks >= 10) {
+            if (this.acceleratorsActual > 100 && this.charge == 0 && this.quarks >= 10) {
                 this.quarks -= 10 
-                this.nuetrons +=1 
+                this.neutrons +=1 
             }
             // proton recipe
-            else if (this.accelerators > 1000 && this.quarks >= 10 && this.charge > 0) {
+            else if (this.acceleratorsActual > 1000 && this.quarks >= 10 && this.charge > 0) {
                 this.quarks -= 10
-                this.nuetrons += 1-charge
+                this.neutrons += 1-charge
                 this.protons += charge
             }
             // electron recipe
-            else if (this.accelerators > 1000 && this.quarks >= 10 && this.charge < 0) {
+            else if (this.acceleratorsActual > 1000 && this.quarks >= 10 && this.charge < 0) {
                 this.quarks -= 10
-                this.nuetrons += 1-charge
+                this.neutrons += 1-charge
                 this.electrons += charge*-1
             }
 
-            if (this.accelerators > 10000 && this.nuetrons > 1 && this.protons > 1 && this.electrons > 1) {
-                this.nuetrons -= 1
+            if (this.acceleratorsActual > 10000 && this.neutrons > 1 && this.protons > 1 && this.electrons > 1) {
+                this.neutrons -= 1
                 this.protons -= 1
                 this.electrons -= 1
                 this.hydrogen += 1
