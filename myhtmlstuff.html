@@ -8,6 +8,7 @@
         body {
             align-items: center;
             text-align: center;
+            justify-content: center;
             font-family: 'Arial', sans-serif;
         }
         #resources {
@@ -51,9 +52,11 @@
         /* Style for upgrade items */
         .upgrade-item {
             border: 1px solid #ddd;
-            text-align: center;
             height: 80px;
             width: 80px;
+        }
+        #fitText {
+            margin: 0;
         }
 
         .sliders {
@@ -103,8 +106,12 @@
     <div class="slider">
         <div class="handle"></div>
     </div>
-    <div class="upgrade-container" id="upgrade-section" style="visibility: hidden;">
-        <div class="upgrade-item" onmouseenter="showDescription()" onmouseleave="hideDescription()">Test1</div>
+    <div class="upgrade-container" id="upgrade-section" style="visibility: visible;">
+        <div class="upgrade-item" id="upgrade1" onmouseenter="showDescription(1)" onmouseleave="hideDescription(1)">Expander</div>
+        <div class="upgrade-item" id="upgrade2" onmouseenter="showDescription(2)" onmouseleave="hideDescription(2)">Expanderer</div>
+        <div class="upgrade-item" id="upgrade3" onmouseenter="showDescription(3)" onmouseleave="hideDescription(3)">Expandererer</div>
+        <div class="upgrade-item" id="upgrade4" onmouseenter="showDescription(4)" onmouseleave="hideDescription(4)">Expandererer</div>
+        <div class="upgrade-item" id="upgrade5" onmouseenter="showDescription(5)" onmouseleave="hideDescription(5)">Expanderererer</div>
     </div>
     <div class="grid-container" style="grid-template-columns: repeat(2, 1fr)">
         <div class="grid-item">
@@ -172,15 +179,44 @@
         }
 
         
-
-        function showDescription() {
-            document.onmousover = function(e) {
-                console.log(e.target.class);
+        
+        function showDescription(upgradeID) {
+            if (upgradeID == 1) {
+                upgradeDescription = "this upgrade gives you absolutely nothing!"
             }
-            
+            if (upgradeID == 2) {
+                upgradeDescription = "this upgrade gives you absolutely nothing!"
+            }
+            if (upgradeID == 3) {
+                upgradeDescription = "this upgrade gives you absolutely nothing!"
+            }
+            if (upgradeID == 4) {
+                upgradeDescription = "this upgrade gives you absolutely nothing!"
+            }
+            if (upgradeID == 5) {
+                upgradeDescription = "this upgrade gives you absolutely nothing!"
+            }
+            document.getElementById("upgrade"+upgradeID).style.width = "240px";
+            document.getElementById("upgrade"+upgradeID).innerText = upgradeDescription;
         }
-        function hideDescription() {
-
+        function hideDescription(upgradeID) {
+            if (upgradeID == 1) {
+                upgradeName = "Expander";
+            }
+            if (upgradeID == 2) {
+                upgradeName = "Expanderer";
+            }
+            if (upgradeID == 3) {
+                upgradeName = "Expandererer";
+            }
+            if (upgradeID == 4) {
+                upgradeName = "Expanderererer";
+            }
+            if (upgradeID == 5) {
+                upgradeName = "Expandererererer";
+            }
+            document.getElementById("upgrade"+upgradeID).style.width = "80px";
+            document.getElementById("upgrade"+upgradeID).innerText = upgradeName;
         }
         function updateResources() {
             document.getElementById('charge').innerText = this.charge;
@@ -197,9 +233,16 @@
             
         }
         function earnResource() {
+
+            // TODO game speed function needs some work
+            // 1 click should start the game
+            // 1000 clicks unlocks idle features
+            // 10000 clicks first particles start forming
+            // 
+
             this.accelerators++;
             
-            this.acceleratorsActual = Math.pow((this.accelerators), 1.8);
+            this.acceleratorsActual = Math.pow((this.accelerators), 1.5);
 
             /*
             if (this.acceleratorsSqrd > 100000000) {
@@ -263,6 +306,35 @@
             this.updateResources();
         }
 
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fitText();
+            window.addEventListener('resize', fitText);
+        });
+
+        function fitText() {
+            const container = document.querySelectorAll('.upgrade-item');
+            const text = document.getElementById(".upgrade-item");
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const maxWidth = containerWidth * 0.9; // Adjust as needed
+            const maxHeight = containerHeight * 0.9; // Adjust as needed
+
+            container.forEach(text => {
+                console.log(text.innerText);
+                text.style.fontSize = '1em';
+                // Apply the calculated font size
+                const fontSize = Math.min(maxWidth / text.offsetWidth, maxHeight / text.offsetHeight) * 16;
+                text.style.fontSize = fontSize + 'px';
+            });
+
+            // Get the container dimensions
+
+            
+
+            // Calculate the maximum font size that fits the container
+        }
+
         document.getElementById('accelerateBtn').addEventListener('click', () => this.earnResource());
         updateResources();
         setInterval(this.passiveEarning, 100);
@@ -288,7 +360,7 @@
             const sliderWidth = interact.getElementRect(event.target.parentNode).width
             const value = (event.pageX / sliderWidth);
             // 0-1 value
-            const formattedValue = value.toFixed(2);
+            const formattedValue = value.toFixed(4);
             // -1 to 1 value
             const chargeValue = (formattedValue - 0.25)*4;
             const formattedCharge = chargeValue.toFixed(2);
@@ -296,8 +368,6 @@
             event.target.setAttribute('data-value', formattedCharge);
             charge = Number(formattedCharge);
         });
-
     </script>
-
 </body>
 </html>
